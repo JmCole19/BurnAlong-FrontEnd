@@ -3,14 +3,16 @@ import {
     Navbar,
     Form,
     Button,
-    FormControl
+    FormControl,
+    Nav
 } from 'react-bootstrap';
 
 export default class MyNavbar extends React.Component {
     render() {
         return (
             <Navbar bg="light" expand="lg">
-                <Navbar.Brand href="#home">BurnAlong WebApp</Navbar.Brand>
+                <Navbar.Brand>BurnAlong Web App</Navbar.Brand>
+                <Nav.Link href="/">Home</Nav.Link>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                     <Button variant="outline-success">Search</Button>

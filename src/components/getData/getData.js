@@ -1,5 +1,11 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
+import ItemPage from '../itemPage/itemPage';
+import {
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 class GetData extends React.Component {
     constructor(props) {
@@ -44,40 +50,48 @@ class GetData extends React.Component {
             return <h1>Failed to fetch data. Error: {error.message}</h1>
         } else {
             let item;
+            let itemId;
 
             //This iterates through the returned data (items) and assigns it to the item variable in the form of a rendered <row> tag
             for (const [key, value] of Object.entries(items)) {
-                    item = (
-                        <tr key={key}>
-                            <td>#{key}</td>
-                            <td>{value.title}</td>
-                            <td>{value.author}</td>
-                            <td>{value.date}</td>
-                            <td>{value.rating}</td>
-                        </tr>
+                item = (
+                    <tr key={key}>
+                        <td>#{key}</td>
+                        <td><Link to={`/${key}`}>{value.title}</Link></td>
+                        <td>{value.author}</td>
+                        <td>{value.date}</td>
+                        <td>{value.rating}</td>
+                    </tr>
                 )
+                itemId = key;
                 //pushes all returned items to a list
                 list.push(item);
             }
-
             return (
-
+                <Switch>
+                    <Route path={`/:${itemId}`}>
+                        <ItemPage />
+                    </Route>
+                    <Route path="/">
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>ID #</th>
+                                    <th>Episode Title</th>
+                                    <th>Author</th>
+                                    <th>Date</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {/* List iteration for all of the items */}
+                                {[...list]}
+                            </tbody>
+                        </Table>
+                    </Route>
+                </Switch>
                 //Returns HTML for component
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>ID #</th>
-                            <th>Episode Title</th>
-                            <th>Author</th>
-                            <th>Date</th>
-                            <th>Rating</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {/* List iteration for all of the items */}
-                        {[...list]}
-                    </tbody>
-                </Table>
+
             )
         }
     }

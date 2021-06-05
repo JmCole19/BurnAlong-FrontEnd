@@ -1,9 +1,11 @@
 import React from 'react';
-import GetData from './components/getData/getData';
-import MyNavbar from './components/navbar/navbar';
 import {
-  Container,
-} from 'react-bootstrap';
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+import Home from './components/homePage/homePage';
+// import ItemPage from './components/itemPage/itemPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -13,14 +15,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <Container>
-        <MyNavbar />
-        <Container>
-        {/* <Table striped bordered hover> */}
-          <GetData />
-        {/* </Table> */}
-        </Container>
-      </Container>
+      <Router>
+        <Switch>
+          <Route path="/">
+            <Home />
+          </Route>
+        </Switch>
+    </Router>
     )
   }
 
